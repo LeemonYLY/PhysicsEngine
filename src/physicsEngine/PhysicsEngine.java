@@ -1,16 +1,22 @@
 package physicsEngine;
 
+// A physics engine 
+// that simulates the movement of objects in the vertical direction and calculates their associated physics parameters
 public class PhysicsEngine {
 
 	public static void main(String[] args) {
-		// 输入参数含义和建议范围：
-		// args[0]: initialPosition - 初始位置（单位：米）, 建议范围: 任何实数
-		// args[1]: finalPosition - 末位置（单位：米）, 建议范围: 任何实数
-		// args[2]: initialTime - 初始时间（单位：秒）, 建议范围: 任何实数
-		// args[3]: finalTime - 末时间（单位：秒）, 建议范围: 任何实数
+		// Input parameters and suggested ranges:
+		// args[0]: initialPosition - Initial position (unit: meters), Suggested Range:
+		// Any real number
+		// args[1]: finalPosition - Final position (unit: meters), Suggested Range: Any
+		// real number
+		// args[2]: initialTime - Initial time (unit: seconds), Suggested Range: Any
+		// real number
+		// args[3]: finalTime - Final time (unit: seconds), Suggested Range: Any real
+		// number
 
 		if (args.length != 4) {
-			System.err.println("请输入四个参数：initialPosition, finalPosition, initialTime, finalTime");
+			System.err.println("Please enter four parameters: initialPosition, finalPosition, initialTime, finalTime");
 			return;
 		}
 
@@ -27,6 +33,16 @@ public class PhysicsEngine {
 		System.out.println(displacement);
 	}
 
+	/**
+	 * Calculates the velocity of an object based on initial and final positions and
+	 * times. If the initial time is equal to the final time, returns 0.0.
+	 *
+	 * @param initialPosition The initial position of the object.
+	 * @param finalPosition   The final position of the object.
+	 * @param initialTime     The initial time.
+	 * @param finalTime       The final time.
+	 * @return The calculated velocity.
+	 */
 	public static double calculateVelocity(double initialPosition, double finalPosition, double initialTime,
 			double finalTime) {
 		if (initialTime == finalTime) {
@@ -37,14 +53,33 @@ public class PhysicsEngine {
 		return velocity % 100000;
 	}
 
+	/**
+	 * Calculates the total energy of an object based on velocity, mass, and height.
+	 *
+	 * @param velocity The velocity of the object.
+	 * @param mass     The mass of the object.
+	 * @param height   The height of the object.
+	 * @return The calculated total energy.
+	 */
 	public static double calculateTotalEnergy(double velocity, double mass, double height) {
-		double gravitationalConstant = 9.81; // 重力常数，单位 m/s^2
+		double gravitationalConstant = 9.81; // Gravitational constant, unit: m/s^2
 		double potentialEnergy = mass * gravitationalConstant * height;
 		double kineticEnergy = 0.5 * mass * velocity * velocity;
 		double totalEnergy = potentialEnergy + kineticEnergy;
 		return totalEnergy % 100000;
 	}
 
+	/**
+	 * Calculates the displacement of an object based on velocity, initial and final
+	 * times, and total energy. If the initial time is equal to the final time or
+	 * the velocity is 0, returns 0.0.
+	 *
+	 * @param velocity    The velocity of the object.
+	 * @param initialTime The initial time.
+	 * @param finalTime   The final time.
+	 * @param totalEnergy The total energy of the object.
+	 * @return The calculated displacement.
+	 */
 	public static double calculateDisplacement(double velocity, double initialTime, double finalTime,
 			double totalEnergy) {
 		if (initialTime == finalTime || velocity == 0) {
